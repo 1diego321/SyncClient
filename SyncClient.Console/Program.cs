@@ -52,7 +52,7 @@ namespace SyncClient.Console
             if (result.Success)
             {
                 System.Console.WriteLine("Se realizó la sincronizacion de articulos exitosamente!\n");
-                System.Console.WriteLine($"Articlos enviados: {result.SentCount}");
+                System.Console.WriteLine($"Articulos enviados: {result.SentCount}");
                 System.Console.WriteLine($"Articulos agregados: {result.AddedCount}");
                 System.Console.WriteLine($"Articulos actualizados: {result.UpdatedCount}");
             }
