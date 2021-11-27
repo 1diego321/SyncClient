@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace SyncClient.Core.Entities
 {
     public class Client
     {
+        public Guid Id_cliente_proveedor { get; set; }
+        public string Cod_cliente_proveedor { get; set; }
+        public string Nombre { get; set; }
+        public string Cedula { get; set; }
+        public string Email { get; set; }
+        public string Telefono { get; set; }
     }
 }

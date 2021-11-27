@@ -13,7 +13,8 @@ namespace SyncClient.Core.Service
             var articleDAO = new ArticleDAO();
             var httpRepo = new HTTP.HttpRepository();
             var dtos = new List<ArticuloSyncDTO>();
-            string url = "https://localhost:44394/api/System/SyncArticles";
+            //string url = "https://localhost:44394/api/System/SyncArticles";
+            string url = "https://market-express.azurewebsites.net/api/System/SyncArticles";
             SyncResponse res = new();
             int count = 0;
 
@@ -29,6 +30,37 @@ namespace SyncClient.Core.Service
                 res = httpRepo.Send(dtos, url);
 
                 res.SentCount = articles.Count;
+
+                return res;
+            }
+            catch (System.Exception ex)
+            {
+                return new SyncResponse(false);
+            }
+        }
+
+        public SyncResponse SyncClients()
+        {
+            var clientDAO = new ClienteDAO();
+            var httpRepo = new HTTP.HttpRepository();
+            var dtos = new List<ClienteSyncDTO>();
+            string url = "https://localhost:44394/api/System/SyncClients";
+            //string url = "https://market-express.azurewebsites.net/api/System/SyncClients";
+            SyncResponse res = new();
+            int count = 0;
+
+            try
+            {
+                var clients = clientDAO.GetAll();
+
+                clients.ForEach(x =>
+                {
+                    dtos.Add(x.MapDTO());
+                });
+
+                res = httpRepo.Send(dtos, url);
+
+                res.SentCount = clients.Count;
 
                 return res;
             }

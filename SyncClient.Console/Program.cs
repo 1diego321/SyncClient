@@ -1,10 +1,13 @@
-﻿using SyncClient.Core.Service;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Hosting;
+using SyncClient.Core.Service;
 
 namespace SyncClient.Console
 {
-    class Program
+    public class Program
     {
+        public static IConfigurationRoot configuration;
+
         static void Main(string[] args)
         {
             string op = "";
@@ -67,3 +70,5 @@ namespace SyncClient.Console
         }
     }
 }
+
+
