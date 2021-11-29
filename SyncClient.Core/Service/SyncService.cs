@@ -3,6 +3,7 @@ using SyncClient.Core.SQL.DAO;
 using SyncClient.Core.Extensions;
 using System.Collections.Generic;
 using SyncClient.Core.Models.DTO;
+using System.Linq;
 
 namespace SyncClient.Core.Service
 {
@@ -13,10 +14,9 @@ namespace SyncClient.Core.Service
             var articleDAO = new ArticleDAO();
             var httpRepo = new HTTP.HttpRepository();
             var dtos = new List<ArticuloSyncDTO>();
-            //string url = "https://localhost:44394/api/System/SyncArticles";
-            string url = "https://market-express.azurewebsites.net/api/System/SyncArticles";
+            string url = "https://localhost:44394/api/System/SyncArticles";
+            //string url = "https://market-express.azurewebsites.net/api/System/SyncArticles";
             SyncResponse res = new();
-            int count = 0;
 
             try
             {
@@ -47,11 +47,12 @@ namespace SyncClient.Core.Service
             string url = "https://localhost:44394/api/System/SyncClients";
             //string url = "https://market-express.azurewebsites.net/api/System/SyncClients";
             SyncResponse res = new();
-            int count = 0;
 
             try
             {
                 var clients = clientDAO.GetAll();
+
+                clients.RemoveAt(clients.FindIndex(x => x.Nombre == "CLIENTE CONTADO"));
 
                 clients.ForEach(x =>
                 {

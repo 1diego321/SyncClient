@@ -1,13 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using SyncClient.Core.Service;
+﻿using SyncClient.Core.Service;
 
 namespace SyncClient.Console
 {
     public class Program
     {
-        public static IConfigurationRoot configuration;
-
         static void Main(string[] args)
         {
             string op = "";
@@ -40,7 +36,28 @@ namespace SyncClient.Console
 
         static void SyncClients()
         {
+            var service = new SyncService();
 
+            System.Console.WriteLine("\nEspere, sincronizando clientes...");
+            System.Console.WriteLine("");
+
+            var result = service.SyncClients();
+
+            if (result.Success)
+            {
+                System.Console.WriteLine("Se realizó la sincronizacion de clientes exitosamente!\n");
+                System.Console.WriteLine($"Clientes enviados: {result.SentCount}");
+                System.Console.WriteLine($"Clientes agregados: {result.AddedCount}");
+                System.Console.WriteLine($"Clientes actualizados: {result.UpdatedCount}");
+            }
+            else
+            {
+                System.Console.WriteLine("Error al sincronizar...");
+                System.Console.WriteLine($"Código de estado: {(int)result.StatusCode} {result.StatusCode}");
+            }
+
+            System.Console.WriteLine("\nPulse cualquier tecla para continuar.");
+            System.Console.ReadKey();
         }
 
         static void SyncArticles()
